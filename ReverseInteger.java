@@ -11,50 +11,51 @@ import java.util.*;
  *
  */
 
-class ReverseInteger {
+class Solution {
   public static void main(String[] args) {
 
-    int x = -123;
+    int x = -214;
     System.out.println(reverseInteger(x));
   }
-
+  
   public static int reverseInteger(int num){
     int ans;
     boolean positive;
     if(num >= 0){
       positive = true;
-    }else{
-      positive = false;
-    }
-
-    String res = new String("");
-    if(positive){
       if(num < 10 && num  >= 0){
         return num;
       }
-      while(num > 9){
-        int digit = num % 10;
-        res = res.concat(Integer.toString(digit));
-        //System.out.println(res);
-        num /= 10;
-      }
-      res = res.concat(Integer.toString(num));
-      ans = Integer.valueOf(res);
     }else{
-      if(num > -10 && num < 0){
-        return num;
+      positive = false;
+      if(num == Math.abs(num)){
+        return 0;
       }
-
       num = Math.abs(num);
-      while(num > 9){
-        int digit = num % 10;
-        res = res.concat(Integer.toString(digit));
-        num /= 10;
-      }
-      res = res.concat(Integer.toString(num));
-      ans = Integer.valueOf(res);
+    }
+
+    String res = new String("");
+    while(num > 9){
+      int digit = num % 10;
+      res = res.concat(Integer.toString(digit));
+      num /= 10;
+    }
+    res = res.concat(Integer.toString(num));
+    ans = convertToInt(res);
+
+    if(!positive){
       ans *= -1;
     }
     return ans;
+  }
+
+  public static int convertToInt(String str){
+    int res = 0;
+    try{
+      res = Integer.parseInt(str);
+    }catch(NumberFormatException e){
+      return 0;
+    }
+    return res;
   }
 }
